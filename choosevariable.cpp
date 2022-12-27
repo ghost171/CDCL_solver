@@ -10,7 +10,7 @@ int Solver::VariableChoice() {
   int attempts = 0;
   uniform_int_distribution<int> chooseBranch(1, 11);
   uniform_int_distribution<int> chooseVariable(0, literalCount);
-  int BranchChosen = chooseBranch(generator);
+  int BranchChosen = chooseBranch(random_generator);
   if (BranchChosen > 4 || assignedLiteralCount < literalCount / 2 || too_many_attempts) {
     pickedVariablesCounters++;
     if (pickedVariablesCounters == 20 * literalCount) {
@@ -29,7 +29,7 @@ int Solver::VariableChoice() {
     return -variable - 1;
   } else {
     while (attempts < 10 * literalCount) {
-      int variable = chooseVariable(generator);
+      int variable = chooseVariable(random_generator);
       if (frequency[variable] != -1) {
         if (polarity[variable] >= 0) {
           return variable + 1;
@@ -59,7 +59,7 @@ int Solver::VariableChoice() {
       return -variable - 1;
     } else {
       while (attempts < 10 * literalCount) {
-        int variable = chooseVariable(generator);
+        int variable = chooseVariable(random_generator);
         if (frequency[variable] != -1) {
           if (polarity[variable] >= 0) {
             return variable + 1;

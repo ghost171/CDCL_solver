@@ -15,7 +15,6 @@ public:
 
 private:
     //objects
-    mt19937 generator;
     bool alreadyUnsatisfied;
     int pickedVariablesCounters;
     int assignedLiteralCount;

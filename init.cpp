@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Solver::Solver(string &file_name) : generator(random_generator()), alreadyUnsatisfied(false), pickedVariablesCounters(0),  assignedLiteralCount(0), degreeAntecedent(-1) {
+Solver::Solver(string &file_name): alreadyUnsatisfied(false), pickedVariablesCounters(0),  assignedLiteralCount(0), degreeAntecedent(-1) {
   char p1, p2, p3, p4;
   string line;
   std::ifstream myfile; 
