@@ -3,20 +3,26 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <fstream>
 #include "solver.hpp"
 
 using namespace std;
 
-Solver::Solver() : generator(random_generator()), alreadyUnsatisfied(false), pickedVariablesCounters(0),  assignedLiteralCount(0), degreeAntecedent(-1) {
-  char p;
+Solver::Solver(string &file_name) : generator(random_generator()), alreadyUnsatisfied(false), pickedVariablesCounters(0),  assignedLiteralCount(0), degreeAntecedent(-1) {
+  char p1, p2, p3, p4;
   string line;
+  std::ifstream myfile; 
+  myfile.open(file_name);
+  
+  myfile >> p1;
+  myfile >> p2;
+  myfile >> p3;
+  myfile >> p4;
+  
 
-  for (int i = 0; i < 1; i++) {
-    cin >> p;
-  }
+  myfile >> literalCount;
+  myfile >> clauseCount;
 
-  cin >> literalCount;
-  cin >> clauseCount;
   literalsList.clear();
   literalsList.resize(literalCount, -1);
   frequency.clear();
@@ -29,13 +35,12 @@ Solver::Solver() : generator(random_generator()), alreadyUnsatisfied(false), pic
   literalPast.resize(literalCount, -1);
   literalDecisionLevel.clear();
   literalDecisionLevel.resize(literalCount, -1);
-
   int literal;
   int NumberOfVariablesInclause = 0; 
   for (int i = 0; i < clauseCount; i++) {
     NumberOfVariablesInclause = 0;
     while (true) {
-      cin >> literal;
+      myfile >> literal;
       if (literal > 0) {
         literalsListInclause[i].push_back(literal);
         frequency[literal - 1]++;
@@ -54,5 +59,6 @@ Solver::Solver() : generator(random_generator()), alreadyUnsatisfied(false), pic
       NumberOfVariablesInclause++;
     }
   }
+  myfile.close();
   BackTrackFrequency = frequency;
 }

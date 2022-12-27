@@ -8,7 +8,7 @@
 using namespace std;
 
 int Solver::backtrack(int decisionLevel) {
-    vector<int> clause = literalsListInclause[degreeAntecedent];
+vector<int> clause = literalsListInclause[degreeAntecedent];
     int conflictLevel = decisionLevel;
     int thisLevelConflictCount = 0;       
     int ConflictSolverLiteral;

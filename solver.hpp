@@ -8,7 +8,7 @@ using namespace std;
 
 class Solver {
 public:
-    Solver();
+    Solver(string &);
     int CDCL();
 
     void launch();
