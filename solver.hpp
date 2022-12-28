@@ -3,48 +3,47 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
+enum RetVal {
+  R_SAT,
+  R_UNSAT,
+  R_NORMAL
+};
+
 class Solver {
-public:
-    Solver(string &);
-    int CDCL();
-
-    void launch();
-
 private:
-    //objects
-    bool alreadyUnsatisfied;
-    int pickedVariablesCounters;
-    int assignedLiteralCount;
-    int degreeAntecedent;
+  vector<int> literals;
+  vector<vector<int>> literalsListInclause;
+  vector<int> frequency;
+  vector<int> polarity;
+  vector<int> nonPolarFrequency;
+  int literalCount;
+  int clauseCount;
+  int degreeAntecedent;
+  vector<int> literalDecisionLevel;
+  vector<int> literalPast;
+  
+  int AssignedLiteralCount;
+  bool alreadyUnsatisfied;
+  int pickedVariablesCounters;
+  random_device randomVariables;
+  mt19937 generator;
+  int variablePropagation(int);
+  void fillLiteral(int, int, int);
+  void unfillLiteral(int);
+  int literalWithPolarity(int);
+  int backtrack(int);
+  vector<int> &conflict_solve(vector<int> &,int);
+  int chooseRightVariable();
+  bool allVariablesFilled();
+  void result(int);
 
-    vector<int> literalsList;
-    vector<vector<int>> literalsListInclause;
-    vector<int> frequency;
-    vector<int> polarity;
-    vector<int> BackTrackFrequency;
-    int literalCount;
-    int clauseCount;
-    vector<int> literalDecisionLevel;
-    vector<int> literalPast;
-    random_device random_generator;
-    
-    //functions
-
-    int backtrack(int decisionLevel);
-
-    int variablePropagation(int decisionLevel);
-    
-    void fillLiteral(int variable, int decisionLevel, int antecedent);
-
-    void unfillLiteral(int literalIndex);
-
-    int literalWithPolarity(int variable);
-
-    int VariableChoice();
-
-    vector<int> &ConflictSolve(vector<int> &input, int literal);
-
+public:
+  Solver() : generator(randomVariables()) {}
+  void init(string &);
+  int CDCL();
+  void launch();
 };
